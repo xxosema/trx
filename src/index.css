@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #210d06; /* Color específico del usuario */
+    @apply text-white;
+    font-family: 'IBM Plex Mono', monospace;
+    /* Bloquear scroll en móvil */
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Permitir scroll solo en desktop */
+  @media (min-width: 640px) {
+    body {
+      overflow: auto;
+      position: static;
+      width: auto;
+      height: auto;
+    }
+  }
+
+  /* Selección de texto personalizada */
+  ::selection {
+    background-color: #ff1200; /* Mismo rojo que toda la app */
+    color: #000000; /* Negro */
+  }
+
+  ::-moz-selection {
+    background-color: #ff1200; /* Mismo rojo que toda la app para Firefox */
+    color: #000000; /* Negro */
+  }
+}
+
+@layer components {
+  .sidebar-border {
+    height: 1px;
+    background-color: #ff1200;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    box-shadow: 0 0 3px rgba(255, 18, 0, 0.5);
+  }
+
+  .item-border {
+    height: 1px;
+    background-color: #ff1200;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    box-shadow: 0 0 2px rgba(255, 18, 0, 0.4);
+  }
+
+  .writing-mode-vertical-rl {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  /* Borde redondeado principal */
+  .rounded-border {
+    border: 1px solid #ff1200;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 
+      0 0 8px rgba(255, 18, 0, 0.4),
+      0 0 16px rgba(255, 18, 0, 0.2);
+  }
+
+  /* Efecto glow para hover de filas */
+  .sidebar-item-hover {
+    transition: all 0.3s ease;
+  }
+
+  .sidebar-item-hover:hover {
+    box-shadow: 
+      0 0 8px rgba(255, 18, 0, 0.5),
+      0 0 16px rgba(255, 18, 0, 0.3),
+      0 0 24px rgba(255, 18, 0, 0.2);
+    text-shadow: 0 0 6px rgba(255, 18, 0, 0.7);
+  }
+
+  /* Efecto de flicker/tintineo CRT */
+  .crt-flicker {
+    animation: flicker 0.08s infinite linear;
+  }
+
+  @keyframes flicker {
+    0% { opacity: 0.85; }
+    20% { opacity: 1; }
+    40% { opacity: 0.9; }
+    60% { opacity: 1; }
+    80% { opacity: 0.95; }
+    100% { opacity: 0.85; }
+  }
+
+  /* Scanlines horizontales */
+  .crt-scanlines {
+    background-image: 
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 18, 0, 0.03) 2px,
+        rgba(255, 18, 0, 0.03) 4px
+      );
+    background-size: 100% 4px;
+  }
+
+  /* Vignette (oscurecimiento en los bordes) */
+  .crt-vignette {
+    box-shadow: 
+      inset 0 0 100px rgba(0, 0, 0, 0.3),
+      inset 0 0 200px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Distorsión sutil de pantalla */
+  .crt-distortion {
+    transform: perspective(1000px) rotateX(0.5deg);
+  }
+
+  /* Efecto de "phosphor glow" */
+  .crt-phosphor {
+    filter: contrast(1.1) brightness(1.05);
+  }
+
+  /* Efectos CRT para el contenedor principal */
+  .crt-effects {
+    animation: flicker 0.08s infinite linear;
+    background-image: 
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 1px,
+        rgba(255, 18, 0, 0.08) 1px,
+        rgba(255, 18, 0, 0.08) 3px
+      );
+    background-size: 100% 3px;
+    box-shadow: 
+      inset 0 0 80px rgba(0, 0, 0, 0.5),
+      inset 0 0 150px rgba(0, 0, 0, 0.4);
+    filter: contrast(1.2) brightness(1.1) blur(0.3px);
+  }
+}
+
+@layer utilities {
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  .animate-fadeOut {
+    animation: fadeOut 0.5s ease-out forwards;
+  }
+}
