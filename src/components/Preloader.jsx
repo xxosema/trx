@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 
 const Preloader = ({ onComplete }) => {
   const [currentLine, setCurrentLine] = useState(0);
-  const [isComplete, setIsComplete] = useState(false);
 
   const trxAscii = [
     "████████╗██████╗ ██╗  ██╗",
@@ -14,84 +13,99 @@ const Preloader = ({ onComplete }) => {
   ];
 
   useEffect(() => {
+    // Mostrar línea por línea cada 200ms (más rápido)
     if (currentLine < trxAscii.length) {
       const timer = setTimeout(() => {
         setCurrentLine(prev => prev + 1);
-      }, 200); // 200ms entre cada línea
+      }, 200); // Reducido de 800ms a 200ms
 
       return () => clearTimeout(timer);
     } else {
-      // Esperar un poco más antes de completar
+      // Cuando todas las líneas estén mostradas, esperar solo 1 segundo y completar
       const finalTimer = setTimeout(() => {
-        setIsComplete(true);
-        setTimeout(() => {
-          onComplete();
-        }, 500); // 500ms de transición
-      }, 800);
+        onComplete();
+      }, 1000); // Reducido de 3000ms a 1000ms
 
       return () => clearTimeout(finalTimer);
     }
-  }, [currentLine, onComplete]);
-
-  if (isComplete) {
-    return (
-      <div className="fixed inset-0 p-2 sm:p-6 z-50 animate-fadeOut" style={{ backgroundColor: '#210d06' }}>
-        <div className="flex items-center justify-center h-[90vh] sm:h-full relative rounded-border crt-effects mx-2 sm:mx-0">
-          <div className="font-mono text-xs opacity-0 animate-fadeOut text-center p-8" style={{ 
-            color: '#ff1200',
-            textShadow: '0 0 4px rgba(255, 18, 0, 0.6), 0 0 8px rgba(255, 18, 0, 0.4)'
-          }}>
-            {trxAscii.map((line, index) => (
-              <div key={index} className="whitespace-pre font-mono">
-                {line}
-              </div>
-            ))}
-            
-            {/* LOADING con puntos animados */}
-            <div className="mt-4 text-center">
-              <span className="font-mono text-xs" style={{ 
-                color: '#ff1200',
-                textShadow: '0 0 4px rgba(255, 18, 0, 0.6), 0 0 8px rgba(255, 18, 0, 0.4)'
-              }}>
-                LOADING
-                <span className="animate-pulse">...</span>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  }, [currentLine, trxAscii.length, onComplete]);
 
   return (
-    <div className="fixed inset-0 p-2 sm:p-6 z-50" style={{ backgroundColor: '#210d06' }}>
-      <div className="flex items-center justify-center h-[90vh] sm:h-full relative rounded-border crt-effects mx-2 sm:mx-0">
-        <div className="font-mono text-xs text-center p-8" style={{ 
-          color: '#ff1200',
-          textShadow: '0 0 4px rgba(255, 18, 0, 0.6), 0 0 8px rgba(255, 18, 0, 0.4)'
-        }}>
-          {trxAscii.map((line, index) => (
-            <div
-              key={index}
-              className={`whitespace-pre font-mono transition-all duration-300 ${
-                index <= currentLine
-                  ? 'opacity-100 transform translate-y-0'
-                  : 'opacity-0 transform translate-y-2'
-              }`}
+    <div 
+      className="h-screen p-2 sm:p-6"
+      style={{ backgroundColor: '#210d06' }}
+    >
+      <div 
+        className="flex flex-col-reverse sm:flex-row h-[90vh] sm:h-full relative rounded-border crt-effects mx-2 sm:mx-0"
+      >
+        {/* Contenido centrado en toda la pantalla */}
+        <div className="w-full flex items-center justify-center">
+          <div 
+            className="text-center"
+            style={{
+              width: '100%',
+              maxWidth: '600px',
+              margin: '0 auto',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            {/* Contenedor para ASCII con ancho fijo */}
+            <div 
+              style={{
+                width: '400px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center'
+              }}
             >
-              {line}
+              {trxAscii.slice(0, currentLine + 1).map((line, index) => (
+                <div 
+                  key={index} 
+                  className="font-mono text-xs mb-1"
+                  style={{ 
+                    color: '#ff1200',
+                    textShadow: '0 0 4px rgba(255, 18, 0, 0.6), 0 0 8px rgba(255, 18, 0, 0.4)',
+                    lineHeight: '1.2',
+                    textAlign: 'center',
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}
+                >
+                  <span style={{ 
+                    whiteSpace: 'pre',
+                    fontFamily: 'monospace',
+                    letterSpacing: '0.5px'
+                  }}>
+                    {line}
+                  </span>
+                </div>
+              ))}
             </div>
-          ))}
-          
-          {/* LOADING con puntos animados */}
-          <div className="mt-4 text-center">
-            <span className="font-mono text-xs" style={{ 
-              color: '#ff1200',
-              textShadow: '0 0 4px rgba(255, 18, 0, 0.6), 0 0 8px rgba(255, 18, 0, 0.4)'
-            }}>
-              LOADING
-              <span className="animate-pulse">...</span>
-            </span>
+            
+            {/* Texto LOADING */}
+            <div 
+              className="mt-6"
+              style={{
+                textAlign: 'center',
+                width: '100%'
+              }}
+            >
+              <span 
+                className="font-mono text-xs font-bold"
+                style={{ 
+                  color: '#ff1200',
+                  textShadow: '0 0 4px rgba(255, 18, 0, 0.6), 0 0 8px rgba(255, 18, 0, 0.4)'
+                }}
+              >
+                LOADING
+                <span className="ml-2">...</span>
+              </span>
+            </div>
           </div>
         </div>
       </div>

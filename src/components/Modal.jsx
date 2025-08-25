@@ -131,8 +131,8 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
               </div>
             )}
             
-            {/* Nombre del archivo en pequeño */}
-            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2">
+            {/* Nombre del archivo en pequeño - Solo en desktop */}
+            <div className="hidden sm:block absolute bottom-2 left-1/2 transform -translate-x-1/2">
               <span className="font-mono text-[8px] sm:text-[10px]" style={{
                 color: '#ff1200',
                 textShadow: '0 0 2px rgba(255, 18, 0, 0.4)'
@@ -155,8 +155,8 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
               Tu navegador no soporta el elemento de video.
             </video>
             
-            {/* Nombre del archivo en pequeño */}
-            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2">
+            {/* Nombre del archivo en pequeño - Solo en desktop */}
+            <div className="hidden sm:block absolute bottom-2 left-1/2 transform -translate-x-1/2">
               <span className="font-mono text-[8px] sm:text-[10px]" style={{
                 color: '#ff1200',
                 textShadow: '0 0 2px rgba(255, 18, 0, 0.4)'
@@ -185,8 +185,8 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
               </div>
             </div>
             
-            {/* Nombre del archivo en pequeño */}
-            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2">
+            {/* Nombre del archivo en pequeño - Solo en desktop */}
+            <div className="hidden sm:block absolute bottom-2 left-1/2 transform -translate-x-1/2">
               <span className="font-mono text-[8px] sm:text-[10px]" style={{
                 color: '#ff1200',
                 textShadow: '0 0 2px rgba(255, 18, 0, 0.4)'

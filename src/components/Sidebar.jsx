@@ -3,11 +3,35 @@ import { projectData } from '../data/projectData';
 
 const Sidebar = ({ onItemClick, selectedItem }) => {
   const [expandedSections, setExpandedSections] = useState({
-    info: true,        // Solo THE PROJECT abierto por defecto
-    trx_001: false,    // TRX_001 cerrado
-    trx_002: false,    // TRX_002 cerrado
-    contact: false     // CONTACT cerrado
+    info: false,       // Todas cerradas por defecto
+    trx_001: false,    
+    trx_002: false,    
+    contact: false     
   });
+
+  // Funciones auxiliares para obtener el archivo activo de cada sección
+  const getActiveInfoItem = () => {
+    return projectData.info.find(item => item.id === selectedItem?.id);
+  };
+
+  const getActiveTrx001Item = () => {
+    return projectData.projects[0].files.find(item => item.id === selectedItem?.id);
+  };
+
+  const getActiveTrx002Item = () => {
+    return projectData.projects[1].files.find(item => item.id === selectedItem?.id);
+  };
+
+  const getActiveContactItem = () => {
+    // Para contact, verificamos si el selectedItem es de tipo contact
+    if (selectedItem?.type === 'contact') {
+      // Determinar cuál de los elementos de contact está activo
+      if (selectedItem?.id === 'email') return 'HOLA@XOSEMA.COM';
+      if (selectedItem?.id === 'phone') return '+34648700293';
+      if (selectedItem?.id === 'website') return 'HTTPS://XOSE.INFO';
+    }
+    return null;
+  };
 
   // En desktop, todas las secciones abiertas y no se pueden cerrar
   useEffect(() => {
@@ -21,7 +45,7 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
         });
       } else {
         setExpandedSections({
-          info: true,
+          info: false,
           trx_001: false,
           trx_002: false,
           contact: false
@@ -65,14 +89,33 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
   const handleItemClick = (item, type) => {
     console.log('Sidebar - Item clicked:', item); // Debug
     console.log('Sidebar - Type:', type); // Debug
-    console.log('Sidebar - Calling onItemClick with:', { ...item, type: item.type }); // Debug - Usar item.type en lugar de type
+    console.log('Sidebar - Calling onItemClick with:', { ...item, type: item.type }); // Corregido: usar item.type en lugar de type
+    console.log('Window width:', window.innerWidth); // Debug - Verificar ancho de ventana
+    
+    // En móvil, cerrar TODAS las secciones para optimizar espacio
+    if (window.innerWidth < 640) {
+      console.log('Mobile detected, closing ALL sections...'); // Debug
+      
+      // Cerrar todas las secciones
+      setExpandedSections({
+        info: false,
+        trx_001: false,
+        trx_002: false,
+        contact: false
+      });
+      
+      console.log('All sections closed for mobile'); // Debug
+    } else {
+      console.log('Desktop detected, no section closing'); // Debug
+    }
+    
     onItemClick({ ...item, type: item.type }); // Corregido: usar item.type en lugar de type
   };
 
 
 
   return (
-    <div className="w-full sm:w-2/5 border-r-0 sm:border-r h-auto sm:h-full relative" style={{
+    <div className="w-full sm:w-2/5 border-r-0 sm:border-r h-auto sm:h-full relative sidebar-optimized" style={{
       borderRightColor: '#ff1200',
       borderRightWidth: '1px',
       boxShadow: '2px 0 4px rgba(255, 18, 0, 0.3)'
@@ -85,7 +128,13 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
             className="w-full text-left px-3 py-2.5 font-mono text-xs flex justify-between items-center hover:bg-red-700 hover:text-white transition-colors focus:outline-none focus:ring-0 border-0 shadow-none sidebar-item-hover"
             style={{ backgroundColor: '#ff1200', color: 'black' }}
           >
-            THE PROJECT ↓
+            <span>THE PROJECT ↓</span>
+            {/* Mostrar archivo activo en móvil */}
+            {window.innerWidth < 640 && getActiveInfoItem() && (
+              <span className="text-xs opacity-80 truncate ml-2">
+                {getActiveInfoItem().name}
+              </span>
+            )}
           </button>
           
           {expandedSections.info && (
@@ -113,7 +162,7 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
             </div>
           )}
           {/* Borde rojo después de la sección (de borde a borde) */}
-          <div className="sidebar-border mt-1"></div>
+          <div className="sidebar-border"></div>
         </div>
 
         {/* TRX_001 Section */}
@@ -123,7 +172,13 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
             className="w-full text-left px-3 py-2.5 font-mono text-xs flex justify-between items-center hover:bg-red-700 hover:text-white transition-colors focus:outline-none focus:ring-0 border-0 shadow-none sidebar-item-hover"
             style={{ backgroundColor: '#ff1200', color: 'black' }}
           >
-            TRX_001 ↓
+            <span>TRX_001 ↓</span>
+            {/* Mostrar archivo activo en móvil */}
+            {window.innerWidth < 640 && getActiveTrx001Item() && (
+              <span className="text-xs opacity-80 truncate ml-2">
+                {getActiveTrx001Item().name}
+              </span>
+            )}
           </button>
           
           {expandedSections.trx_001 && (
@@ -148,7 +203,7 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
             </div>
           )}
           {/* Borde rojo después de la sección (de borde a borde) */}
-          <div className="sidebar-border mt-1"></div>
+          <div className="sidebar-border"></div>
         </div>
 
         {/* TRX_002 Section */}
@@ -158,7 +213,13 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
             className="w-full text-left px-3 py-2.5 font-mono text-xs flex justify-between items-center hover:bg-red-700 hover:text-white transition-colors focus:outline-none focus:ring-0 border-0 shadow-none sidebar-item-hover"
             style={{ backgroundColor: '#ff1200', color: 'black' }}
           >
-            TRX_002 ↓
+            <span>TRX_002 ↓</span>
+            {/* Mostrar archivo activo en móvil */}
+            {window.innerWidth < 640 && getActiveTrx002Item() && (
+              <span className="text-xs opacity-80 truncate ml-2">
+                {getActiveTrx002Item().name}
+              </span>
+            )}
           </button>
           
           {expandedSections.trx_002 && (
@@ -183,7 +244,7 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
             </div>
           )}
           {/* Borde rojo después de la sección (de borde a borde) */}
-          <div className="sidebar-border mt-1"></div>
+          <div className="sidebar-border"></div>
         </div>
 
         {/* CONTACT Section */}
@@ -193,13 +254,32 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
             className="w-full text-left px-3 py-2.5 font-mono text-xs flex justify-between items-center hover:bg-red-700 hover:text-white transition-colors focus:outline-none focus:ring-0 border-0 shadow-none sidebar-item-hover"
             style={{ backgroundColor: '#ff1200', color: 'black' }}
           >
-            CONTACT ↓
+            <span>CONTACT ↓</span>
+            {/* Mostrar archivo activo en móvil */}
+            {window.innerWidth < 640 && getActiveContactItem() && (
+              <span className="text-xs opacity-80 truncate ml-2">
+                {getActiveContactItem()}
+              </span>
+            )}
           </button>
           
           {expandedSections.contact && (
             <div>
               <button 
-                onClick={() => window.open('mailto:hola@xosema.com', '_blank')}
+                onClick={() => {
+                  // En móvil, cerrar todas las secciones para optimizar espacio
+                  if (window.innerWidth < 640) {
+                    setExpandedSections({
+                      info: false,
+                      trx_001: false,
+                      trx_002: false,
+                      contact: false
+                    });
+                  }
+                  // Llamar a handleItemClick para rastrear el elemento activo
+                  handleItemClick({ id: 'email', name: 'HOLA@XOSEMA.COM', type: 'contact' }, 'contact');
+                  window.open('mailto:hola@xosema.com', '_blank');
+                }}
                 className="w-full text-left px-3 py-2.5 font-mono text-xs hover:bg-red-600/80 hover:text-black transition-colors focus:outline-none focus:ring-0 border-0 shadow-none sidebar-item-hover"
                 style={{ color: '#ff1200' }}
               >
@@ -208,7 +288,20 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
               {/* Borde rojo entre elementos */}
               <div className="item-border"></div>
               <button 
-                onClick={() => window.open('tel:+34648700293', '_blank')}
+                onClick={() => {
+                  // En móvil, cerrar todas las secciones para optimizar espacio
+                  if (window.innerWidth < 640) {
+                    setExpandedSections({
+                      info: false,
+                      trx_001: false,
+                      trx_002: false,
+                      contact: false
+                    });
+                  }
+                  // Llamar a handleItemClick para rastrear el elemento activo
+                  handleItemClick({ id: 'phone', name: '+34648700293', type: 'contact' }, 'contact');
+                  window.open('tel:+34648700293', '_blank');
+                }}
                 className="w-full text-left px-3 py-2.5 font-mono text-xs hover:bg-red-600/80 hover:text-black transition-colors focus:outline-none focus:ring-0 border-0 shadow-none sidebar-item-hover"
                 style={{ color: '#ff1200' }}
               >
@@ -217,14 +310,27 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
               {/* Borde rojo entre elementos */}
               <div className="item-border"></div>
               <button 
-                onClick={() => window.open('https://xose.info', '_blank')}
+                onClick={() => {
+                  // En móvil, cerrar todas las secciones para optimizar espacio
+                  if (window.innerWidth < 640) {
+                    setExpandedSections({
+                      info: false,
+                      trx_001: false,
+                      trx_002: false,
+                      contact: false
+                    });
+                  }
+                  // Llamar a handleItemClick para rastrear el elemento activo
+                  handleItemClick({ id: 'website', name: 'HTTPS://XOSE.INFO', type: 'contact' }, 'contact');
+                  window.open('https://xose.info', '_blank');
+                }}
                 className="w-full text-left px-3 py-2.5 font-mono text-xs hover:bg-red-600/80 hover:text-black transition-colors focus:outline-none focus:ring-0 border-0 shadow-none sidebar-item-hover"
                 style={{ color: '#ff1200' }}
               >
                 HTTPS://XOSE.INFO
               </button>
               {/* Borde rojo después de la sección (de borde a borde) */}
-              <div className="sidebar-border mt-1"></div>
+              <div className="sidebar-border"></div>
             </div>
           )}
         </div>
