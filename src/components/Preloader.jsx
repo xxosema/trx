@@ -36,10 +36,10 @@ const Preloader = ({ onComplete }) => {
       style={{ backgroundColor: '#210d06' }}
     >
       <div 
-        className="flex flex-col-reverse sm:flex-row h-[90vh] sm:h-full relative rounded-border crt-effects mx-2 sm:mx-0"
+        className="flex flex-col-reverse sm:flex-row h-full relative rounded-border crt-effects mx-2 sm:mx-0"
       >
         {/* Contenido centrado en toda la pantalla */}
-        <div className="w-full flex items-center justify-center">
+        <div className="w-full flex items-center justify-center h-full">
           <div 
             className="text-center"
             style={{

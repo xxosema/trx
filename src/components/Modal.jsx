@@ -172,8 +172,8 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
           <div className="p-1 sm:p-8 flex items-center justify-center h-full relative">
             {renderSmallTRX()}
             <div className="w-full max-w-none">
-              <div className="space-y-1 sm:space-y-4 px-2 sm:px-6">
-                <div className="font-mono text-[9px] sm:text-xs leading-[1.3] sm:leading-tight uppercase" style={{ 
+              <div className="space-y-1 sm:space-y-4 px-2 sm:px-20">
+                <div className="font-mono text-[9px] sm:text-xs leading-[1.3] sm:leading-tight uppercase text-center sm:text-left" style={{ 
                   color: '#ff1200',
                   textShadow: '0 0 2px rgba(255, 18, 0, 0.4)',
                   whiteSpace: 'pre-wrap'
@@ -193,6 +193,24 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
               }}>
                 {selectedItem.name}
               </span>
+            </div>
+          </div>
+        );
+      
+      case 'section':
+        return (
+          <div className="p-1 sm:p-8 flex items-center justify-center h-full relative">
+            {renderSmallTRX()}
+            <div className="w-full max-w-none">
+              <div className="space-y-1 sm:space-y-4 px-2 sm:px-6">
+                <div className="font-mono text-[9px] sm:text-xs leading-[1.3] sm:leading-tight uppercase text-center sm:text-left" style={{ 
+                  color: '#ff1200',
+                  textShadow: '0 0 2px rgba(255, 18, 0, 0.4)',
+                  whiteSpace: 'pre-wrap'
+                }}>
+                  AWAITING USER INPUT...
+                </div>
+              </div>
             </div>
           </div>
         );

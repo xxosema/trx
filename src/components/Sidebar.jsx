@@ -77,12 +77,31 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
         };
       }
       // Si la sección está cerrada, la abrimos y cerramos las demás
-      return {
+      const newState = {
         info: section === 'info',
         trx_001: section === 'trx_001',
         trx_002: section === 'trx_002',
         contact: section === 'contact'
       };
+      
+      // En móvil, cuando se abre una sección, mostrar "Awaiting user input..."
+      if (window.innerWidth < 640) {
+        const sectionNames = {
+          info: 'THE PROJECT',
+          trx_001: 'TRX_001',
+          trx_002: 'TRX_002',
+          contact: 'CONTACT'
+        };
+        
+        onItemClick({
+          id: `section-${section}`,
+          name: `${sectionNames[section]} - Awaiting user input...`,
+          type: 'section',
+          section: section
+        });
+      }
+      
+      return newState;
     });
   };
 
@@ -162,7 +181,7 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
             </div>
           )}
           {/* Borde rojo después de la sección (de borde a borde) */}
-          <div className="sidebar-border"></div>
+          <div className="sidebar-border mt-1"></div>
         </div>
 
         {/* TRX_001 Section */}
@@ -203,7 +222,7 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
             </div>
           )}
           {/* Borde rojo después de la sección (de borde a borde) */}
-          <div className="sidebar-border"></div>
+          <div className="sidebar-border mt-1"></div>
         </div>
 
         {/* TRX_002 Section */}
@@ -244,7 +263,7 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
             </div>
           )}
           {/* Borde rojo después de la sección (de borde a borde) */}
-          <div className="sidebar-border"></div>
+          <div className="sidebar-border mt-1"></div>
         </div>
 
         {/* CONTACT Section */}
@@ -330,7 +349,7 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
                 HTTPS://XOSE.INFO
               </button>
               {/* Borde rojo después de la sección (de borde a borde) */}
-              <div className="sidebar-border"></div>
+              <div className="sidebar-border mt-1"></div>
             </div>
           )}
         </div>
