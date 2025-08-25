@@ -83,6 +83,11 @@
     text-shadow: 0 0 6px rgba(255, 18, 0, 0.7);
   }
 
+  /* Glow sutil para todos los elementos del sidebar */
+  .sidebar-item-hover {
+    text-shadow: 0 0 2px rgba(255, 18, 0, 0.4);
+  }
+
   /* Efecto de flicker/tintineo CRT */
   .crt-flicker {
     animation: flicker 0.08s infinite linear;

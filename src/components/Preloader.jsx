@@ -35,33 +35,65 @@ const Preloader = ({ onComplete }) => {
 
   if (isComplete) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center z-50 animate-fadeOut crt-effects" style={{ backgroundColor: '#210d06' }}>
-        <div className="font-mono text-xs opacity-0 animate-fadeOut text-center rounded-border p-8" style={{ color: '#ff1200' }}>
-          {trxAscii.map((line, index) => (
-            <div key={index} className="whitespace-pre font-mono">
-              {line}
+      <div className="fixed inset-0 p-2 sm:p-6 z-50 animate-fadeOut" style={{ backgroundColor: '#210d06' }}>
+        <div className="flex items-center justify-center h-[90vh] sm:h-full relative rounded-border crt-effects mx-2 sm:mx-0">
+          <div className="font-mono text-xs opacity-0 animate-fadeOut text-center p-8" style={{ 
+            color: '#ff1200',
+            textShadow: '0 0 4px rgba(255, 18, 0, 0.6), 0 0 8px rgba(255, 18, 0, 0.4)'
+          }}>
+            {trxAscii.map((line, index) => (
+              <div key={index} className="whitespace-pre font-mono">
+                {line}
+              </div>
+            ))}
+            
+            {/* LOADING con puntos animados */}
+            <div className="mt-4 text-center">
+              <span className="font-mono text-xs" style={{ 
+                color: '#ff1200',
+                textShadow: '0 0 4px rgba(255, 18, 0, 0.6), 0 0 8px rgba(255, 18, 0, 0.4)'
+              }}>
+                LOADING
+                <span className="animate-pulse">...</span>
+              </span>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 crt-effects" style={{ backgroundColor: '#210d06' }}>
-      <div className="font-mono text-xs text-center rounded-border p-8" style={{ color: '#ff1200' }}>
-        {trxAscii.map((line, index) => (
-          <div
-            key={index}
-            className={`whitespace-pre font-mono transition-all duration-300 ${
-              index <= currentLine
-                ? 'opacity-100 transform translate-y-0'
-                : 'opacity-0 transform translate-y-2'
-            }`}
-          >
-            {line}
+    <div className="fixed inset-0 p-2 sm:p-6 z-50" style={{ backgroundColor: '#210d06' }}>
+      <div className="flex items-center justify-center h-[90vh] sm:h-full relative rounded-border crt-effects mx-2 sm:mx-0">
+        <div className="font-mono text-xs text-center p-8" style={{ 
+          color: '#ff1200',
+          textShadow: '0 0 4px rgba(255, 18, 0, 0.6), 0 0 8px rgba(255, 18, 0, 0.4)'
+        }}>
+          {trxAscii.map((line, index) => (
+            <div
+              key={index}
+              className={`whitespace-pre font-mono transition-all duration-300 ${
+                index <= currentLine
+                  ? 'opacity-100 transform translate-y-0'
+                  : 'opacity-0 transform translate-y-2'
+              }`}
+            >
+              {line}
+            </div>
+          ))}
+          
+          {/* LOADING con puntos animados */}
+          <div className="mt-4 text-center">
+            <span className="font-mono text-xs" style={{ 
+              color: '#ff1200',
+              textShadow: '0 0 4px rgba(255, 18, 0, 0.6), 0 0 8px rgba(255, 18, 0, 0.4)'
+            }}>
+              LOADING
+              <span className="animate-pulse">...</span>
+            </span>
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );

@@ -39,6 +39,11 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
   }, []);
 
   const toggleSection = (section) => {
+    // En desktop (pantallas >= 640px) no se pueden cerrar las secciones
+    if (window.innerWidth >= 640) {
+      return;
+    }
+    
     setExpandedSections(prev => {
       // Si la sección ya está abierta, la cerramos
       if (prev[section]) {
@@ -67,7 +72,11 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
 
 
   return (
-    <div className="w-full sm:w-2/5 border-r-0 sm:border-r border-red-500 h-auto sm:h-full relative">
+    <div className="w-full sm:w-2/5 border-r-0 sm:border-r h-auto sm:h-full relative" style={{
+      borderRightColor: '#ff1200',
+      borderRightWidth: '1px',
+      boxShadow: '2px 0 4px rgba(255, 18, 0, 0.3)'
+    }}>
       <div className="space-y-0 h-auto sm:h-full flex flex-col">
         {/* THE PROJECT Section */}
         <div className="flex-shrink-0">
@@ -88,7 +97,10 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
                     className={`w-full text-left px-3 py-2.5 font-mono text-xs hover:bg-red-600/80 hover:text-black transition-colors focus:outline-none focus:ring-0 border-0 shadow-none sidebar-item-hover ${
                       selectedItem?.id === item.id ? 'bg-red-600/80 text-black' : ''
                     }`}
-                    style={{ color: '#ff1200' }}
+                    style={{ 
+                      color: '#ff1200',
+                      textShadow: '0 0 2px rgba(255, 18, 0, 0.4)'
+                    }}
                   >
                     {item.name}
                   </button>
@@ -186,19 +198,31 @@ const Sidebar = ({ onItemClick, selectedItem }) => {
           
           {expandedSections.contact && (
             <div>
-              <div className="w-full text-left px-3 py-2.5 font-mono text-xs" style={{ color: '#ff1200' }}>
+              <button 
+                onClick={() => window.open('mailto:hola@xosema.com', '_blank')}
+                className="w-full text-left px-3 py-2.5 font-mono text-xs hover:bg-red-600/80 hover:text-black transition-colors focus:outline-none focus:ring-0 border-0 shadow-none sidebar-item-hover"
+                style={{ color: '#ff1200' }}
+              >
                 HOLA@XOSEMA.COM
-              </div>
+              </button>
               {/* Borde rojo entre elementos */}
               <div className="item-border"></div>
-              <div className="w-full text-left px-3 py-2.5 font-mono text-xs" style={{ color: '#ff1200' }}>
+              <button 
+                onClick={() => window.open('tel:+34648700293', '_blank')}
+                className="w-full text-left px-3 py-2.5 font-mono text-xs hover:bg-red-600/80 hover:text-black transition-colors focus:outline-none focus:ring-0 border-0 shadow-none sidebar-item-hover"
+                style={{ color: '#ff1200' }}
+              >
                 +34648700293
-              </div>
+              </button>
               {/* Borde rojo entre elementos */}
               <div className="item-border"></div>
-              <div className="w-full text-left px-3 py-2.5 font-mono text-xs" style={{ color: '#ff1200' }}>
+              <button 
+                onClick={() => window.open('https://xose.info', '_blank')}
+                className="w-full text-left px-3 py-2.5 font-mono text-xs hover:bg-red-600/80 hover:text-black transition-colors focus:outline-none focus:ring-0 border-0 shadow-none sidebar-item-hover"
+                style={{ color: '#ff1200' }}
+              >
                 HTTPS://XOSE.INFO
-              </div>
+              </button>
               {/* Borde rojo después de la sección (de borde a borde) */}
               <div className="sidebar-border mt-1"></div>
             </div>
