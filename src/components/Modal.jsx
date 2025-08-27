@@ -247,7 +247,7 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
             {renderSmallTRX()}
             
             {/* Contenedor de imagen y botón */}
-            <div className="flex flex-col items-center justify-center w-full h-full" style={{ transform: 'translateX(-2%)' }}>
+            <div className="flex flex-col items-center justify-center w-full h-full" style={{ transform: window.innerWidth >= 640 ? 'translateX(-2%)' : 'none' }}>
               {/* Imagen principal */}
               <img 
                 src={selectedItem.url} 
@@ -282,8 +282,8 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
               </span>
             </div>
             
-            {/* Overlay de pantalla completa */}
-            {isImageFullscreen && (
+            {/* Overlay de pantalla completa usando Portal */}
+            {isImageFullscreen && createPortal(
               <div 
                 className="fixed inset-0 z-[9999] flex items-center justify-center"
                 style={{ 
@@ -293,16 +293,18 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
                   right: 0, 
                   bottom: 0,
                   backgroundColor: '#000000',
-                  backdropFilter: 'none',
-                  WebkitBackdropFilter: 'none',
-                  filter: 'none',
-                  WebkitFilter: 'none',
-                  backgroundImage: 'none',
-                  boxShadow: 'none',
-                  textShadow: 'none',
-                  transform: 'none',
-                  perspective: 'none',
-                  transformStyle: 'flat'
+                  backdropFilter: 'none !important',
+                  WebkitBackdropFilter: 'none !important',
+                  filter: 'none !important',
+                  WebkitFilter: 'none !important',
+                  backgroundImage: 'none !important',
+                  boxShadow: 'none !important',
+                  textShadow: 'none !important',
+                  transform: 'none !important',
+                  perspective: 'none !important',
+                  transformStyle: 'flat !important',
+                  blur: 'none !important',
+                  WebkitBlur: 'none !important'
                 }}
               >
                 <img 
@@ -310,12 +312,16 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
                   alt={selectedItem.name} 
                   className="max-w-[95%] max-h-[95%] object-contain"
                   style={{
-                    filter: 'none',
-                    WebkitFilter: 'none',
-                    backdropFilter: 'none',
-                    WebkitBackdropFilter: 'none',
-                    transform: 'none',
-                    perspective: 'none'
+                    filter: 'none !important',
+                    WebkitFilter: 'none !important',
+                    backdropFilter: 'none !important',
+                    WebkitBackdropFilter: 'none !important',
+                    transform: 'none !important',
+                    perspective: 'none !important',
+                    blur: 'none !important',
+                    WebkitBlur: 'none !important',
+                    imageRendering: 'auto !important',
+                    WebkitImageRendering: 'auto !important'
                   }}
                 />
                 
@@ -327,12 +333,12 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
                   }}
                   className="absolute top-4 right-4 bg-red-600 hover:bg-red-700 text-black font-mono text-sm px-4 py-2 rounded transition-colors z-[10000]"
                   style={{
-                    filter: 'none',
-                    WebkitFilter: 'none',
-                    backdropFilter: 'none',
-                    WebkitBackdropFilter: 'none',
-                    transform: 'none',
-                    perspective: 'none'
+                    filter: 'none !important',
+                    WebkitFilter: 'none !important',
+                    backdropFilter: 'none !important',
+                    WebkitBackdropFilter: 'none !important',
+                    transform: 'none !important',
+                    perspective: 'none !important'
                   }}
                 >
                   CLOSE
@@ -344,7 +350,8 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
                     {selectedItem.name}
                   </span>
                 </div>
-              </div>
+              </div>,
+              document.body
             )}
           </div>
         );
