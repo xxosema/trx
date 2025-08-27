@@ -268,7 +268,8 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
                   className="font-mono text-[10px] text-red-500 hover:text-red-400 transition-colors cursor-pointer"
                 >
                   CLICK TO EXPAND
-              </button>
+                </button>
+              </div>
             </div>
             
             {/* Nombre del archivo en pequeño - Solo en desktop */}
