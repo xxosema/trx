@@ -10,7 +10,7 @@ const Modal = ({ selectedItem }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [progress, setProgress] = useState(0);
+
   const videoRef = useRef(null);
   
   // Estado para la vista de pantalla completa de imágenes
@@ -141,9 +141,7 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
   const handleTimeUpdate = () => {
     if (videoRef.current) {
       const current = videoRef.current.currentTime;
-      const total = videoRef.current.duration;
       setCurrentTime(current);
-      setProgress((current / total) * 100);
     }
   };
 
@@ -360,8 +358,8 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
         return (
           <div className="p-1 sm:p-8 flex items-center justify-center h-full relative">
             {renderSmallTRX()}
-            <div className="relative max-w-[50%] max-h-[50%] flex items-center justify-center" style={{ 
-              transform: window.innerWidth < 640 ? 'translateY(-10%)' : 'none' 
+            <div className="relative max-w-[50%] max-h-[50%] sm:max-w-[50%] sm:max-h-[50%] max-w-[80%] max-h-[80%] flex items-center justify-center" style={{ 
+              transform: window.innerWidth < 640 ? 'translateY(-5%)' : 'none' 
             }}>
               <video
                 ref={videoRef}
@@ -374,7 +372,9 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
               </video>
               
               {/* Controles personalizados cyberpunk */}
-              <div className="absolute bottom-0 left-0 right-0 bg-black/90 backdrop-blur-sm p-3 z-20" style={{ transform: 'translateY(100%)' }}>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/90 backdrop-blur-sm p-3 z-20 rounded-b-lg" style={{ 
+                transform: window.innerWidth >= 640 ? 'translateY(160%)' : 'translateY(100%)' 
+              }}>
                 {/* Controles principales */}
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center space-x-3">
@@ -382,7 +382,7 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
                       onClick={togglePlay}
                       className="bg-red-600 hover:bg-red-700 text-black font-mono text-xs px-3 py-1.5 rounded transition-colors"
                     >
-                      {isPlaying ? '⏸ PAUSE' : '▶ PLAY'}
+                      {isPlaying ? '|| PAUSE' : '▶ PLAY'}
                     </button>
                     <span className="text-red-500 font-mono text-xs">
                       {formatTime(currentTime)} / {formatTime(duration)}
@@ -397,13 +397,7 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
                   </button>
                 </div>
                 
-                {/* Barra de progreso */}
-                <div className="w-full bg-gray-800 h-1.5 rounded-full overflow-hidden">
-                  <div 
-                    className="bg-red-600 h-full transition-all duration-100"
-                    style={{ width: `${progress}%` }}
-                  ></div>
-                </div>
+
               </div>
             </div>
             
