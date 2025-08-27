@@ -243,16 +243,16 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
       case 'image':
         console.log('Image case - name:', selectedItem.name, 'Fullscreen:', isImageFullscreen); // Debug
         return (
-          <div className="w-full h-full flex flex-col items-center justify-center relative">
+          <div className="w-full h-full flex items-center justify-center relative">
             {renderSmallTRX()}
             
             {/* Contenedor de imagen y botón */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center justify-center w-full h-full" style={{ transform: 'translateX(-2%)' }}>
               {/* Imagen principal */}
               <img 
                 src={selectedItem.url} 
                 alt={selectedItem.name} 
-                className="max-w-[90%] max-h-[90%] object-contain cursor-pointer hover:scale-[1.01] transition-transform duration-200"
+                className="max-w-[90%] max-h-[90%] object-contain cursor-pointer hover:scale-[1.01] transition-transform duration-200 rounded-lg"
                 onClick={() => {
                   console.log('Click en imagen, cambiando a fullscreen'); // Debug
                   toggleImageFullscreen();
@@ -268,8 +268,7 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
                   className="font-mono text-[10px] text-red-500 hover:text-red-400 transition-colors cursor-pointer"
                 >
                   CLICK TO EXPAND
-                </button>
-              </div>
+              </button>
             </div>
             
             {/* Nombre del archivo en pequeño - Solo en desktop */}
@@ -353,13 +352,13 @@ ESTABLECIENDO UN NUEVO ESTÁNDAR PARA LA ARQUITECTURA DEL SIGLO XXI.`;
         return (
           <div className="p-1 sm:p-8 flex items-center justify-center h-full relative">
             {renderSmallTRX()}
-            <div className="relative max-w-[70%] max-h-[70%] flex items-center justify-center" style={{ 
+            <div className="relative max-w-[50%] max-h-[50%] flex items-center justify-center" style={{ 
               transform: window.innerWidth < 640 ? 'translateY(-10%)' : 'none' 
             }}>
               <video
                 ref={videoRef}
                 src={selectedItem.url}
-                className="max-w-full max-h-full object-contain rounded"
+                className="max-w-full max-h-full object-contain rounded-lg"
                 onTimeUpdate={handleTimeUpdate}
                 onLoadedMetadata={handleLoadedMetadata}
               >
